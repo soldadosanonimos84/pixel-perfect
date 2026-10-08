@@ -10,33 +10,167 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as AutomacaoRouteImport } from './routes/automacao'
+import { Route as FilaRouteImport } from './routes/fila'
+import { Route as FontesRouteImport } from './routes/fontes'
+import { Route as IaRouteImport } from './routes/ia'
+import { Route as IdeiasRouteImport } from './routes/ideias'
+import { Route as LogsRouteImport } from './routes/logs'
+import { Route as ProducaoRouteImport } from './routes/producao'
+import { Route as PublicadosRouteImport } from './routes/publicados'
+import { Route as RoteirosRouteImport } from './routes/roteiros'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutomacaoRoute = AutomacaoRouteImport.update({
+  id: '/automacao',
+  path: '/automacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FilaRoute = FilaRouteImport.update({
+  id: '/fila',
+  path: '/fila',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FontesRoute = FontesRouteImport.update({
+  id: '/fontes',
+  path: '/fontes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IaRoute = IaRouteImport.update({
+  id: '/ia',
+  path: '/ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IdeiasRoute = IdeiasRouteImport.update({
+  id: '/ideias',
+  path: '/ideias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogsRoute = LogsRouteImport.update({
+  id: '/logs',
+  path: '/logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProducaoRoute = ProducaoRouteImport.update({
+  id: '/producao',
+  path: '/producao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicadosRoute = PublicadosRouteImport.update({
+  id: '/publicados',
+  path: '/publicados',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoteirosRoute = RoteirosRouteImport.update({
+  id: '/roteiros',
+  path: '/roteiros',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/automacao': typeof AutomacaoRoute
+  '/fila': typeof FilaRoute
+  '/fontes': typeof FontesRoute
+  '/ia': typeof IaRoute
+  '/ideias': typeof IdeiasRoute
+  '/logs': typeof LogsRoute
+  '/producao': typeof ProducaoRoute
+  '/publicados': typeof PublicadosRoute
+  '/roteiros': typeof RoteirosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/automacao': typeof AutomacaoRoute
+  '/fila': typeof FilaRoute
+  '/fontes': typeof FontesRoute
+  '/ia': typeof IaRoute
+  '/ideias': typeof IdeiasRoute
+  '/logs': typeof LogsRoute
+  '/producao': typeof ProducaoRoute
+  '/publicados': typeof PublicadosRoute
+  '/roteiros': typeof RoteirosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/automacao': typeof AutomacaoRoute
+  '/fila': typeof FilaRoute
+  '/fontes': typeof FontesRoute
+  '/ia': typeof IaRoute
+  '/ideias': typeof IdeiasRoute
+  '/logs': typeof LogsRoute
+  '/producao': typeof ProducaoRoute
+  '/publicados': typeof PublicadosRoute
+  '/roteiros': typeof RoteirosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/automacao'
+    | '/fila'
+    | '/fontes'
+    | '/ia'
+    | '/ideias'
+    | '/logs'
+    | '/producao'
+    | '/publicados'
+    | '/roteiros'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/analytics'
+    | '/automacao'
+    | '/fila'
+    | '/fontes'
+    | '/ia'
+    | '/ideias'
+    | '/logs'
+    | '/producao'
+    | '/publicados'
+    | '/roteiros'
+  id:
+    | '__root__'
+    | '/'
+    | '/analytics'
+    | '/automacao'
+    | '/fila'
+    | '/fontes'
+    | '/ia'
+    | '/ideias'
+    | '/logs'
+    | '/producao'
+    | '/publicados'
+    | '/roteiros'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  AutomacaoRoute: typeof AutomacaoRoute
+  FilaRoute: typeof FilaRoute
+  FontesRoute: typeof FontesRoute
+  IaRoute: typeof IaRoute
+  IdeiasRoute: typeof IdeiasRoute
+  LogsRoute: typeof LogsRoute
+  ProducaoRoute: typeof ProducaoRoute
+  PublicadosRoute: typeof PublicadosRoute
+  RoteirosRoute: typeof RoteirosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +182,91 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/automacao': {
+      id: '/automacao'
+      path: '/automacao'
+      fullPath: '/automacao'
+      preLoaderRoute: typeof AutomacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fila': {
+      id: '/fila'
+      path: '/fila'
+      fullPath: '/fila'
+      preLoaderRoute: typeof FilaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fontes': {
+      id: '/fontes'
+      path: '/fontes'
+      fullPath: '/fontes'
+      preLoaderRoute: typeof FontesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ia': {
+      id: '/ia'
+      path: '/ia'
+      fullPath: '/ia'
+      preLoaderRoute: typeof IaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ideias': {
+      id: '/ideias'
+      path: '/ideias'
+      fullPath: '/ideias'
+      preLoaderRoute: typeof IdeiasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logs': {
+      id: '/logs'
+      path: '/logs'
+      fullPath: '/logs'
+      preLoaderRoute: typeof LogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/producao': {
+      id: '/producao'
+      path: '/producao'
+      fullPath: '/producao'
+      preLoaderRoute: typeof ProducaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/publicados': {
+      id: '/publicados'
+      path: '/publicados'
+      fullPath: '/publicados'
+      preLoaderRoute: typeof PublicadosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roteiros': {
+      id: '/roteiros'
+      path: '/roteiros'
+      fullPath: '/roteiros'
+      preLoaderRoute: typeof RoteirosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  AutomacaoRoute: AutomacaoRoute,
+  FilaRoute: FilaRoute,
+  FontesRoute: FontesRoute,
+  IaRoute: IaRoute,
+  IdeiasRoute: IdeiasRoute,
+  LogsRoute: LogsRoute,
+  ProducaoRoute: ProducaoRoute,
+  PublicadosRoute: PublicadosRoute,
+  RoteirosRoute: RoteirosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
