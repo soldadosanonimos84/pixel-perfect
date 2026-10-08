@@ -10,7 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as FilaRouteImport } from './routes/fila'
 import { Route as IdeiasRouteImport } from './routes/ideias'
+import { Route as ProducaoRouteImport } from './routes/producao'
+import { Route as PublicadosRouteImport } from './routes/publicados'
 import { Route as RoteirosRouteImport } from './routes/roteiros'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +22,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FilaRoute = FilaRouteImport.update({
+  id: '/fila',
+  path: '/fila',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IdeiasRoute = IdeiasRouteImport.update({
   id: '/ideias',
   path: '/ideias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProducaoRoute = ProducaoRouteImport.update({
+  id: '/producao',
+  path: '/producao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicadosRoute = PublicadosRouteImport.update({
+  id: '/publicados',
+  path: '/publicados',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RoteirosRoute = RoteirosRouteImport.update({
@@ -31,31 +55,69 @@ const RoteirosRoute = RoteirosRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/fila': typeof FilaRoute
   '/ideias': typeof IdeiasRoute
+  '/producao': typeof ProducaoRoute
+  '/publicados': typeof PublicadosRoute
   '/roteiros': typeof RoteirosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/fila': typeof FilaRoute
   '/ideias': typeof IdeiasRoute
+  '/producao': typeof ProducaoRoute
+  '/publicados': typeof PublicadosRoute
   '/roteiros': typeof RoteirosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/fila': typeof FilaRoute
   '/ideias': typeof IdeiasRoute
+  '/producao': typeof ProducaoRoute
+  '/publicados': typeof PublicadosRoute
   '/roteiros': typeof RoteirosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ideias' | '/roteiros'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/fila'
+    | '/ideias'
+    | '/producao'
+    | '/publicados'
+    | '/roteiros'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ideias' | '/roteiros'
-  id: '__root__' | '/' | '/ideias' | '/roteiros'
+  to:
+    | '/'
+    | '/analytics'
+    | '/fila'
+    | '/ideias'
+    | '/producao'
+    | '/publicados'
+    | '/roteiros'
+  id:
+    | '__root__'
+    | '/'
+    | '/analytics'
+    | '/fila'
+    | '/ideias'
+    | '/producao'
+    | '/publicados'
+    | '/roteiros'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  FilaRoute: typeof FilaRoute
   IdeiasRoute: typeof IdeiasRoute
+  ProducaoRoute: typeof ProducaoRoute
+  PublicadosRoute: typeof PublicadosRoute
   RoteirosRoute: typeof RoteirosRoute
 }
 
@@ -68,11 +130,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fila': {
+      id: '/fila'
+      path: '/fila'
+      fullPath: '/fila'
+      preLoaderRoute: typeof FilaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ideias': {
       id: '/ideias'
       path: '/ideias'
       fullPath: '/ideias'
       preLoaderRoute: typeof IdeiasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/producao': {
+      id: '/producao'
+      path: '/producao'
+      fullPath: '/producao'
+      preLoaderRoute: typeof ProducaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/publicados': {
+      id: '/publicados'
+      path: '/publicados'
+      fullPath: '/publicados'
+      preLoaderRoute: typeof PublicadosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/roteiros': {
@@ -87,7 +177,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  FilaRoute: FilaRoute,
   IdeiasRoute: IdeiasRoute,
+  ProducaoRoute: ProducaoRoute,
+  PublicadosRoute: PublicadosRoute,
   RoteirosRoute: RoteirosRoute,
 }
 export const routeTree = rootRouteImport
