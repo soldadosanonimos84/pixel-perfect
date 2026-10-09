@@ -85,7 +85,7 @@ function runPipeline(videoId: string) {
     }
     // stage complete
     set((s) => ({ jobs: s.jobs.map((j) => (j.id === currentJob ? { ...j, progress: 100, status: "completed", completedAt: now() } : j)) }));
-    const nextStatus = VIDEO_FLOW[idx + 1];
+    const nextStatus = VIDEO_FLOW[idx + 1]!;
     if (v.status === "QUALITY_CONTROL") {
       const checks = runQA(v, state);
       const passed = checks.every((c) => c.passed);
@@ -117,7 +117,7 @@ export function addIdea(data: Omit<ContentIdea, "id" | "status" | "createdAt">) 
 }
 
 export function advanceIdea(id: string) {
-  set((s) => ({ ideas: s.ideas.map((i) => i.id === id ? { ...i, status: IDEA_FLOW[Math.min(IDEA_FLOW.indexOf(i.status) + 1, IDEA_FLOW.length - 1)] } : i) }));
+  set((s) => ({ ideas: s.ideas.map((i) => i.id === id ? { ...i, status: IDEA_FLOW[Math.min(IDEA_FLOW.indexOf(i.status) + 1, IDEA_FLOW.length - 1)]! } : i) }));
 }
 
 export function generateScript(ideaId: string): string {
@@ -150,7 +150,7 @@ export function produceVideo(scriptId: string): string {
   const script = state.scripts.find((x) => x.id === scriptId)!;
   const idea = state.ideas.find((i) => i.id === script.ideaId);
   const video: Video = {
-    id: uid("vid"), scriptId, title: idea?.title ?? "Vídeo", thumbnail: m.THUMBS[seq % 3],
+    id: uid("vid"), scriptId, title: idea?.title ?? "Vídeo", thumbnail: m.THUMBS[seq % 3]!,
     status: "QUEUED", progress: 0, duration: script.estimatedDuration, resolution: "1080×1920", createdAt: now(),
   };
   set((s) => ({
@@ -176,7 +176,7 @@ function nextSlot(): string {
       const [h, mi] = t.split(":").map(Number);
       const dt = new Date(base);
       dt.setDate(base.getDate() + d);
-      dt.setHours(h, mi, 0, 0);
+      dt.setHours(h!, mi!, 0, 0);
       if (dt > base && !taken.has(dt.toISOString())) return dt.toISOString();
     }
   }
