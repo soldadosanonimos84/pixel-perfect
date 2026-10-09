@@ -111,21 +111,21 @@ export interface Video {
   duration: number;
   resolution: string;
   qa?: { passed: boolean; checks: QACheck[] };
-  error?: string;
+  error?: string | undefined;
   createdAt: string;
 }
 
 export interface Job {
   id: string;
   type: QueueName;
-  videoId?: string;
+  videoId?: string | undefined;
   status: JobStatus;
   progress: number;
   attempts: number;
-  error?: string;
+  error?: string | undefined;
   createdAt: string;
-  startedAt?: string;
-  completedAt?: string;
+  startedAt?: string | undefined;
+  completedAt?: string | undefined;
 }
 
 export interface Publication {
@@ -134,8 +134,8 @@ export interface Publication {
   platform: "tiktok" | "kwai";
   scheduledAt: string;
   status: PublicationStatus;
-  externalId?: string;
-  note?: string;
+  externalId?: string | undefined;
+  note?: string | undefined;
 }
 
 export interface VideoAnalytics {

@@ -25,8 +25,8 @@ function Sources() {
   const flagged = s.scripts.filter((x) => x.claims.some((c) => !c.sourceIds.length));
 
   const submit = () => {
-    try { new URL(f.url); } catch { return toast.error("URL inválida"); }
-    if (!f.title || !f.publisher) return toast.error("Preencha título e publicador");
+    try { new URL(f.url); } catch { toast.error("URL inválida"); return; }
+    if (!f.title || !f.publisher) { toast.error("Preencha título e publicador"); return; }
     addSource({ ...f, publishedAt: f.publishedAt || new Date().toISOString().slice(0, 10), retrievedAt: new Date().toISOString().slice(0, 10), reliability: "pending" });
     setOpen(false); toast.success("Fonte adicionada (verificação pendente)");
   };

@@ -22,10 +22,10 @@ function Ideas() {
   const s = useStore();
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
-  const [f, setF] = useState({ title: "", topic: "", category: CATEGORIES[0], description: "", sourceId: s.sources[0]?.id ?? "" });
+  const [f, setF] = useState({ title: "", topic: "", category: CATEGORIES[0]!, description: "", sourceId: s.sources[0]?.id ?? "" });
 
   const submit = () => {
-    if (!f.title || !f.sourceId) return toast.error("Título e fonte são obrigatórios.");
+    if (!f.title || !f.sourceId) { toast.error("Título e fonte são obrigatórios."); return; }
     const src = s.sources.find((x) => x.id === f.sourceId)!;
     addIdea({ ...f, publishedAt: src.publishedAt, relevance: 50 + Math.round(Math.random() * 40) });
     setOpen(false);

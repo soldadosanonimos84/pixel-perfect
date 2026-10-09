@@ -28,7 +28,7 @@ export function StatusBadge({ status, label }: { status: string; label?: string 
   );
 }
 
-export function PageHeader({ title, subtitle, actions }: { title: string; subtitle?: string; actions?: ReactNode }) {
+export function PageHeader({ title, subtitle, actions }: { title: string; subtitle?: string | undefined; actions?: ReactNode }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
@@ -40,7 +40,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
   );
 }
 
-export function Panel({ title, action, children, className }: { title?: string; action?: ReactNode; children: ReactNode; className?: string }) {
+export function Panel({ title, action, children, className }: { title?: string | undefined; action?: ReactNode | undefined; children: ReactNode; className?: string }) {
   return (
     <section className={cn("rounded-xl border bg-card", className)}>
       {title && (
@@ -54,7 +54,7 @@ export function Panel({ title, action, children, className }: { title?: string; 
   );
 }
 
-export function Stat({ label, value, hint, icon }: { label: string; value: ReactNode; hint?: string; icon?: ReactNode }) {
+export function Stat({ label, value, hint, icon }: { label: string; value: ReactNode; hint?: string | undefined; icon?: ReactNode }) {
   return (
     <div className="rounded-xl border bg-card p-4">
       <div className="flex items-center justify-between text-xs text-muted-foreground">

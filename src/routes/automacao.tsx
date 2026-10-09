@@ -42,7 +42,7 @@ function Automation() {
             </div>
           </Row>
           <Row label="Qualidade mínima" hint={`${st.minQuality} / 100`}>
-            <Slider className="w-48" value={[st.minQuality]} min={0} max={100} step={5} onValueChange={([v]) => updateSettings({ minQuality: v })} />
+            <Slider className="w-48" value={[st.minQuality]} min={0} max={100} step={5} onValueChange={([v]) => updateSettings({ minQuality: v ?? 0 })} />
           </Row>
           <Row label="Idioma"><span className="font-mono text-sm">{st.language}</span></Row>
           <Row label="Regenerar após falha no QA"><Switch checked={st.autoRegenerate} onCheckedChange={(v) => updateSettings({ autoRegenerate: v })} /></Row>
