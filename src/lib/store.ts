@@ -163,7 +163,7 @@ export function produceVideo(scriptId: string): string {
 }
 
 export function regenerate(videoId: string) {
-  set((s) => ({ videos: s.videos.map((v) => (v.id === videoId ? { ...v, status: "QUEUED", progress: 0, qa: undefined, error: undefined } : v)) }));
+  set((s) => ({ videos: s.videos.map((v) => (v.id === videoId ? (({ qa: _qa, error: _error, ...rest }) => ({ ...rest, status: "QUEUED" as const, progress: 0 }))(v) : v)) }));
   log("warn", "orchestrator", `Regeneração solicitada (${videoId})`);
   runPipeline(videoId);
 }

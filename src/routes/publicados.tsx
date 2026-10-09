@@ -25,7 +25,7 @@ function Published() {
             <article key={p.id} className="overflow-hidden rounded-xl border bg-card">
               <div className="relative aspect-[9/16]">
                 <img src={v.thumbnail} alt={v.title} loading="lazy" className="size-full object-cover" />
-                <div className="absolute left-2 top-2"><StatusBadge status={p.status} label={p.note ? `publicado · ${p.note}` : undefined} /></div>
+                <div className="absolute left-2 top-2"><StatusBadge status={p.status} {...(p.note ? { label: `publicado · ${p.note}` } : {})} /></div>
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background to-transparent p-3 pt-10">
                   <div className="text-sm font-medium leading-tight">{v.title}</div>
                   <div className="mt-1 font-mono text-[10px] text-muted-foreground">TikTok · {fmtDateTime(p.scheduledAt)}</div>
