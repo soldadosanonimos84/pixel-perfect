@@ -2,8 +2,10 @@
 import { spawn } from "node:child_process";
 
 export class DependencyMissingError extends Error {
-  constructor(public exe: string) {
+  exe: string;
+  constructor(exe: string) {
     super(`Executável não encontrado: "${exe}". Verifique o caminho no .env.local.`);
+    this.exe = exe;
   }
 }
 
