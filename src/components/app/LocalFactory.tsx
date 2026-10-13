@@ -133,9 +133,8 @@ function JobDetail({ job, onRefresh, publishingEnabled }: { job: LocalJob; onRef
         {ended && job.status !== "approved" && <Button size="sm" variant="secondary" onClick={async () => { try { await localApi.retry(job.id); await onRefresh(); } catch (e) { toast.error((e as Error).message); } }}><RotateCcw className="size-3.5" /> Tentar novamente</Button>}
         {job.status === "approved" && (
           <Button size="sm" variant="outline" title={publishingEnabled ? "" : "Publicação desativada"} onClick={async () => {
-            try { await localApi.publish(job.id); } catch (e) { toast.error(`Publicação bloqueada: ${(e as Error).message}`); }
             const r = await fetch(`${LOCAL_API}/jobs/${job.id}/publish`, { method: "POST" }).then((x) => x.json() as Promise<{ reasons?: string[] }>).catch(() => null);
-            if (r?.reasons?.length) toast.warning(r.reasons.join(" "));
+            toast.warning(r?.reasons?.length ? r.reasons.join(" ") : "Não foi possível verificar a publicação.");
           }}><Send className="size-3.5" /> Verificar publicação TikTok</Button>
         )}
       </div>

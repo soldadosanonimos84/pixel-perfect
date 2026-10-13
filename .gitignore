@@ -30,3 +30,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local video factory
+.env.local
+output/
+*.onnx
+*.onnx.json
