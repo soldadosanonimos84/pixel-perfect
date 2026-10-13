@@ -1,5 +1,5 @@
 // Browser client for the local factory API running on the user's PC (127.0.0.1). No fallback to fake results.
-export const LOCAL_API = (import.meta.env.VITE_LOCAL_API_URL as string | undefined) ?? "http://127.0.0.1:8787";
+export const LOCAL_API = (import.meta.env["VITE_LOCAL_API_URL"] as string | undefined) ?? "http://127.0.0.1:8787";
 
 export type LocalJobState =
   | "queued" | "generating_script" | "generating_voice" | "rendering" | "quality_check" | "approved" | "rejected" | "failed";

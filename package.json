@@ -11,7 +11,12 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:local": "vitest run --config local/vitest.config.ts",
+    "local:api": "node --experimental-strip-types --watch local/src/api.ts",
+    "local:worker": "node --experimental-strip-types local/src/worker.ts",
+    "local:doctor": "node --experimental-strip-types local/src/cli.ts doctor",
+    "local:generate": "node --experimental-strip-types local/src/cli.ts generate"
   },
   "overrides": {
     "rolldown": "1.2.1"

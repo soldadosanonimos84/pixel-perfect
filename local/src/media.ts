@@ -48,7 +48,7 @@ export async function render(ffmpeg: string, input: { audio: string; srt: string
     "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p",
     "-c:a", "aac", "-b:a", "160k",
     "-c:s", "mov_text", "-metadata:s:s:0", "language=por",
-    "-shortest", "-movflags", "+faststart",
+    "-t", input.duration.toFixed(2), "-movflags", "+faststart",
     input.out,
   ];
   const r = await run(ffmpeg, args, { timeoutMs: 600_000 });
