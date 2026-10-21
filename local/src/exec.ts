@@ -11,17 +11,17 @@ export class DependencyMissingError extends Error {
 
 export interface RunResult { code: number; stdout: string; stderr: string }
 
-export function run(exe: string, args: string[], opts: { input?: string; timeoutMs?: number } = {}): Promise<RunResult> {
+export function run(exe: string, args: string[], opts: { input?: string; timeoutMs?: number; cwd?: string } = {}): Promise<RunResult> {
   return new Promise((resolve, reject) => {
     let child;
     try {
-      child = spawn(exe, args, { shell: false, windowsHide: true });
+      child = spawn(exe, args, { shell: false, windowsHide: true, cwd: opts.cwd });
     } catch {
       return reject(new DependencyMissingError(exe));
     }
     let stdout = "";
     let stderr = "";
-    const timer = opts.timeoutMs ? setTimeout(() => child.kill(), opts.timeoutMs) : null;
+    const timer = opts.timeoutMs ? setTimeout(() => { stderr += "\n[tempo limite excedido]"; child.kill(); }, opts.timeoutMs) : null;
     child.stdout.on("data", (d) => (stdout += d));
     child.stderr.on("data", (d) => (stderr += d));
     child.on("error", (err: NodeJS.ErrnoException) => {
