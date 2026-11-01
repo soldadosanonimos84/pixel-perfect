@@ -1,11 +1,10 @@
-// Technical quality control from ffprobe output. Editorial/factual checks are separate and will plug in later
-// as additional QCCheck producers with category "editorial" | "sources" | "subtitles" | "audio".
+// Quality control. Technical checks (ffprobe/volumedetect), captions and sync. Factual review and human approval are separate stages.
 import fs from "node:fs";
 import { run } from "./exec.ts";
 
 export interface QCCheck {
   name: string;
-  category: "technical";
+  category: "technical" | "audio" | "captions" | "sync";
   passed: boolean;
   detail: string;
 }
@@ -34,6 +33,31 @@ export function evaluateProbe(p: ProbeData, limits: { minDuration: number; maxDu
     { name: "Formato MP4", category: "technical", passed: /mp4/.test(fmt), detail: fmt || "desconhecido" },
   ];
   return { checks, duration: Number.isFinite(duration) ? duration : null, resolution };
+}
+
+export function evaluateAudioLevel(v: { mean: number; max: number } | null): QCCheck[] {
+  if (!v) return [{ name: "Nível de áudio", category: "audio", passed: false, detail: "não foi possível medir" }];
+  return [
+    { name: "Volume médio audível", category: "audio", passed: v.mean >= -30 && v.mean <= -8, detail: `${v.mean.toFixed(1)} dB (alvo −30 a −8)` },
+    { name: "Sem clipping", category: "audio", passed: v.max <= -0.1, detail: `pico ${v.max.toFixed(1)} dB` },
+  ];
+}
+
+export function evaluateCaptions(ass: string, burned: boolean): QCCheck[] {
+  const n = (ass.match(/^Dialogue: 1,/gm) ?? []).length;
+  return [
+    { name: "Legendas geradas", category: "captions", passed: n > 0, detail: `${n} linhas` },
+    { name: "Legendas gravadas no vídeo", category: "captions", passed: burned && n > 0, detail: burned ? "filtro subtitles aplicado no render" : "não" },
+  ];
+}
+
+export function evaluateSync(i: { audio: number; video: number | null; scenesTotal: number; lastCaptionEnd: number }): QCCheck[] {
+  const v = i.video ?? NaN;
+  return [
+    { name: "Vídeo e narração com mesma duração", category: "sync", passed: Math.abs(v - i.audio) <= 0.5, detail: `vídeo ${Number.isFinite(v) ? v.toFixed(2) : "?"}s · áudio ${i.audio.toFixed(2)}s` },
+    { name: "Cenas cobrem a narração", category: "sync", passed: Math.abs(i.scenesTotal - i.audio) <= 0.5, detail: `cenas ${i.scenesTotal.toFixed(2)}s` },
+    { name: "Legendas terminam dentro do vídeo", category: "sync", passed: i.lastCaptionEnd <= (Number.isFinite(v) ? v : i.audio) + 0.1, detail: `última legenda ${i.lastCaptionEnd.toFixed(2)}s` },
+  ];
 }
 
 export async function probe(ffprobe: string, file: string): Promise<ProbeData> {
