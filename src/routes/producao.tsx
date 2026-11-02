@@ -30,7 +30,7 @@ function Production() {
     <>
       <PageHeader title="Produção de vídeo" subtitle="1080 × 1920 · 9:16 · 30–60s · MP4" />
       <LocalFactory />
-      <div className="mb-4 rounded-md border border-warning/30 bg-warning/10 p-2.5 text-xs text-warning">Abaixo: demonstração SIMULADA (dados de exemplo, nada é gerado de verdade).</div>
+      <details className="group"><summary className="mb-4 cursor-pointer rounded-md border border-warning/30 bg-warning/10 p-2.5 text-xs text-warning">Demonstração SIMULADA (dados de exemplo, nada é gerado de verdade) — clique para abrir</summary>
       <div className="mb-6 flex gap-3 overflow-x-auto pb-2">
         {s.videos.map((v) => (
           <button key={v.id} onClick={() => setSel(v.id)} className={`w-40 shrink-0 rounded-lg border p-2 text-left ${v.id === video.id ? "border-primary/50 bg-primary/5" : "bg-card"}`}>
