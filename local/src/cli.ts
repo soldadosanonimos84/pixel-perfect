@@ -11,8 +11,8 @@ const [cmd, ...rest] = process.argv.slice(2);
 
 if (cmd === "doctor") {
   const d = await diagnose(cfg);
-  for (const x of d) console.log(`${x.ok ? "OK  " : "FALHA"} ${x.name.padEnd(22)} ${x.detail}${!x.ok && x.fix ? `\n      → ${x.fix}` : ""}`);
-  process.exit(d.every((x) => x.ok) ? 0 : 1);
+  for (const x of d) console.log(`${x.ok ? "OK   " : x.optional ? "AVISO" : "FALHA"} ${x.name.padEnd(22)} ${x.detail}${!x.ok && x.fix ? `\n      → ${x.fix}` : ""}`);
+  process.exit(d.every((x) => x.ok || x.optional) ? 0 : 1);
 } else if (cmd === "generate") {
   const topic = topicSchema.parse(rest.join(" ") || "Como funciona a urna eletrônica brasileira");
   const store = new JobStore(cfg.DB_PATH);
@@ -20,8 +20,8 @@ if (cmd === "doctor") {
   const job = store.claimNext()!;
   await processJob({ ...cfg, MAX_ATTEMPTS: 1 }, store, job);
   const final = store.get(job.id)!;
-  console.log(`\nStatus: ${final.status}\nVídeo: ${final.video_path ?? "-"}\nErro: ${final.error ?? "-"}`);
-  process.exit(final.status === "approved" ? 0 : 1);
+  console.log(`\nStatus: ${final.status} (aguardando revisão humana = sucesso técnico)\nVídeo: ${final.video_path ?? "-"}\nErro: ${final.error ?? "-"}`);
+  process.exit(final.status === "awaiting_review" ? 0 : 1);
 } else {
   console.log('Uso: cli.ts doctor | cli.ts generate "tema"');
   process.exit(2);

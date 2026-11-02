@@ -14,7 +14,7 @@ export interface Visual {
 }
 
 const IMG = /\.(jpe?g|png)$/i;
-export const FREE_LICENSE = /^(cc0|cc[- ]by(-sa)?([- ][\d.]+)?|public domain|pd\b|pd-)/i;
+export const FREE_LICENSE = /^(cc0( 1\.0)?|cc[- ]by(-sa)?([- ][\d.]+)?( [a-z]{2,})?|public domain|pd|pd-[\w-]+)$/i;
 
 export function pickFromLibrary(dir: string, query: string): Visual | null {
   if (!dir || !fs.existsSync(dir)) return null;
