@@ -10,7 +10,8 @@ function Need($cmd, $hint) {
 
 Need node   "winget install OpenJS.NodeJS.LTS   (Node 22.18+ ou 24 LTS)"
 Need ollama "winget install Ollama.Ollama"
-Need ffmpeg "winget install Gyan.FFmpeg   (reabra o terminal depois)"
+Need ffmpeg "winget install Gyan.FFmpeg   (build completa, inclui libass; reabra o terminal depois)"
+New-Item -ItemType Directory -Force -Path "assets\library" | Out-Null
 
 if (-not (Test-Path ".env.local")) {
   Copy-Item ".env.example" ".env.local"
@@ -37,6 +38,6 @@ Write-Host "Defina no .env.local:" -ForegroundColor Cyan
 Write-Host "  PIPER_EXE=$((Resolve-Path "$piperDir\piper.exe").Path)"
 Write-Host "  PIPER_VOICE=$((Resolve-Path "$voiceDir\pt_BR-faber-medium.onnx").Path)"
 
-if (Get-Command ollama -ErrorAction SilentlyContinue) { ollama pull qwen2.5:7b }
+if (Get-Command ollama -ErrorAction SilentlyContinue) { Write-Host "Baixando modelo qwen2.5:7b (~4.7 GB)..."; ollama pull qwen2.5:7b }
 npm install
-npm run local:doctor
+npm run local:doctor   # so verifica; nao gera videos nem publica
