@@ -128,6 +128,7 @@ function Production() {
           </Panel>
         </div>
       </div>
+      </details>
     </>
   );
 }
