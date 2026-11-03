@@ -46,7 +46,7 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
   if (!res.ok) throw Object.assign(new Error(body.error ?? `Erro ${res.status}`), { body });
   return body;
 }
-const post = <T,>(path: string, body?: unknown) => req<T>(path, { method: "POST", body: body === undefined ? undefined : JSON.stringify(body) });
+const post = <T,>(path: string, body?: unknown) => req<T>(path, body === undefined ? { method: "POST" } : { method: "POST", body: JSON.stringify(body) });
 
 export const localApi = {
   health: () => req<Health>("/health"),
